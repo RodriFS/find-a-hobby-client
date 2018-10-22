@@ -33,7 +33,7 @@ $ npm install
 
 3. Start development server
 ```
-$ npm run main
+$ npm start
 ```
 
 4. Connect client with server.
