@@ -5,7 +5,6 @@ import 'onsenui/css/onsenui.css';
 import 'onsenui/css/onsen-css-components.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-// import { CookiesProvider } from 'react-cookie';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducer from './redux/reducers';
@@ -28,14 +27,11 @@ Store.subscribe(() => {
 });
 
 ReactDOM.render(
-  // <CookiesProvider>
   <Provider store={Store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
   </Provider>,
-  // </CookiesProvider>,
-  document.getElementById('root'));
+  document.getElementById('root')
+);
 registerServiceWorker();
-
-// TODO: fetch hobbies when rendering firts view, not when rendering Discover.

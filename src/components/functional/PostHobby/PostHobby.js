@@ -33,7 +33,6 @@ export default class PostHobby extends Component {
   }
 
   handleBarsChange = (event) => {
-    // Thanks Jack!!!
     const target = event.target
     this.setState({
       bars: {

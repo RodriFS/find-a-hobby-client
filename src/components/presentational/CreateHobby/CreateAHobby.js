@@ -35,7 +35,6 @@ export class CreateAHobby extends React.Component {
   };
 
   handleBarsChange = event => {
-    // Thanks Jack!!!
     const target = event.target;
     this.setState(
       {

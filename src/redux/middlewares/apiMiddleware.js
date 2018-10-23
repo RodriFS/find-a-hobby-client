@@ -9,7 +9,7 @@ export default store => next => action => {
   const defaultHeaders = {};
   if (body) {
     body = JSON.stringify(body);
-    console.log('body',body)
+    console.log('body', body);
     defaultHeaders['Content-type'] = 'application/json';
   }
 
@@ -31,10 +31,11 @@ export default store => next => action => {
   fetch(`${BASE_URL}${endpoint}`, {
     method: method || 'GET',
     body,
-    headers,
-  }).then(response => response.json())
+    headers
+  })
+    .then(response => response.json())
     .then(data => {
-      if(data.error) {
+      if (data.error) {
         store.dispatch({
           ...action,
           type: `${action.type}_ERROR`,
