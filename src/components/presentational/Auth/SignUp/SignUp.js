@@ -2,10 +2,9 @@ import React from 'react';
 import './SignUp.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { Redirect } from 'react-router-dom';
 
 export class SignUp extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -19,8 +18,8 @@ export class SignUp extends React.Component {
         name: '',
         password: '',
         confirmPassword: '',
-        email: '',
-      },
+        email: ''
+      }
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -37,25 +36,32 @@ export class SignUp extends React.Component {
     });
   }
 
-  createUser (event) {
+  createUser(event) {
     event.preventDefault();
 
-    if (this.state.username && this.state.name && this.state.password &&
-        this.state.confirmPassword && this.state.email) {
+    if (
+      this.state.username &&
+      this.state.name &&
+      this.state.password &&
+      this.state.confirmPassword &&
+      this.state.email
+    ) {
       if (this.state.password !== this.state.confirmPassword) {
-        this.setState({error: { password: 'Passwords should match'}});
-        setTimeout(() => this.setState({error: {password: ''}}), 5000);
+        this.setState({ error: { password: 'Passwords should match' } });
+        setTimeout(() => this.setState({ error: { password: '' } }), 5000);
       } else if (this.props.errors === 'User already exist') {
-        this.setState({error: { username: 'User already exist'}});
+        this.setState({ error: { username: 'User already exist' } });
       } else {
-        this.props.createNewUser(this.state)
+        this.props.createNewUser(this.state);
         this.props.history.push('/signin');
       }
     }
   }
 
   render() {
-    return (
+    return this.props.token ? (
+      <Redirect to={{ pathname: '/' }} />
+    ) : (
       <div className="App__signup">
         <h3 className="App__signup__title">SIGN UP</h3>
         <form className="App__signup_form">
@@ -112,7 +118,7 @@ export class SignUp extends React.Component {
         </form>
         <div className="App__signup_form__buttons__signin">
           <div className="App__signup_form__buttons__account">Already have an account?</div>
-          <Link to='/signin'>
+          <Link to="/signin">
             <input type="submit" className="App__signup_form__buttons__button" value="Sign In" />
           </Link>
         </div>
@@ -123,19 +129,23 @@ export class SignUp extends React.Component {
 
 const mapStateToProps = state => ({
   success: state.success.signup,
-  errors: state.errors.signup
+  errors: state.errors.signup,
+  token: state.token
 });
-
 
 const mapDispatchToProps = dispatch => ({
-  createNewUser: (userData) => dispatch({
-    type: 'NEW_USER',
-    api: {
-      endpoint: '/signup',
-      method: 'POST',
-      body: userData,
-    },
-  })
+  createNewUser: userData =>
+    dispatch({
+      type: 'NEW_USER',
+      api: {
+        endpoint: '/signup',
+        method: 'POST',
+        body: userData
+      }
+    })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignUp);
