@@ -17,6 +17,8 @@ The main objective of this project was to take an already existing project and c
 # Screenshots
 ![Main](https://i.imgur.com/B0q0GUB.png)
 
+[Demo](https://vimeo.com/296615991)
+
 # Getting started
 
 1. Clone the repo
